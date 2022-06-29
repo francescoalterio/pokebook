@@ -29,9 +29,6 @@ const Screens = () => {
       .then((result) => dispatch(setPokemonList(result)));
   }, []);
 
-  useEffect(() => {
-    console.log(pokemonList);
-  }, [pokemonList]);
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={setIconTabBar}>
