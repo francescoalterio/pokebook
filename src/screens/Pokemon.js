@@ -55,21 +55,17 @@ const Pokemon = ({ id, setPokemonId }) => {
       <View style={styles.presentation}>
         {setPokemonId ? (
           <>
-            <TouchableOpacity style={[styles.next, styles.arrow]}>
-              <Ionicons
-                name={"arrow-forward"}
-                size={20}
-                color={"#fff"}
-                onPress={handleNext}
-              />
+            <TouchableOpacity
+              style={[styles.next, styles.arrow]}
+              onPress={handleNext}
+            >
+              <Ionicons name={"arrow-forward"} size={20} color={"#fff"} />
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.before, styles.arrow]}>
-              <Ionicons
-                name={"arrow-back"}
-                size={20}
-                color={"#fff"}
-                onPress={handleBefore}
-              />
+            <TouchableOpacity
+              style={[styles.before, styles.arrow]}
+              onPress={handleBefore}
+            >
+              <Ionicons name={"arrow-back"} size={20} color={"#fff"} />
             </TouchableOpacity>
           </>
         ) : (
@@ -173,6 +169,7 @@ const styles = StyleSheet.create({
   presentation: {
     flex: 4,
     flexDirection: "row",
+    paddingTop: 20,
   },
   infoContainer: {
     flex: 6,

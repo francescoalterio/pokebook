@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import * as Progress from "react-native-progress";
 import { typesColor } from "../constants/colors";
 
@@ -8,12 +8,25 @@ const PokemonStats = ({ pokemonData }) => {
 
   useEffect(() => {
     const stats = pokemonData.stats.map((stat) => {
-      return { baseStat: stat.base_stat, name: stat.stat.name };
+      const name =
+        stat.stat.name === "special-attack"
+          ? "Sp. Atk"
+          : stat.stat.name === "special-defense"
+          ? "Sp. Def"
+          : stat.stat.name
+              .split("")
+              .map((letter, index) =>
+                index === 0 ? letter.toUpperCase() : letter
+              )
+              .join("");
+
+      const porcentage = (stat.base_stat / 2) * 0.01;
+      return { baseStat: stat.base_stat, name, porcentage };
     });
-    setData(pokemonData.stats);
+    setData(stats);
   }, [pokemonData]);
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {data && (
         <>
           <Text
@@ -27,12 +40,12 @@ const PokemonStats = ({ pokemonData }) => {
           <FlatList
             data={data}
             renderItem={({ item }) => (
-              <View style={styles.dataContainer}>
-                <Text style={styles.dataKey}>HP</Text>
-                <Text style={styles.dataValue}>56</Text>
+              <View key={item.name} style={styles.dataContainer}>
+                <Text style={styles.dataKey}>{item.name}</Text>
+                <Text style={styles.dataValue}>{item.baseStat}</Text>
                 <View style={styles.progressBarContainer}>
                   <Progress.Bar
-                    progress={0.3}
+                    progress={item.porcentage}
                     width={null}
                     color={typesColor[pokemonData.types[0].type.name]}
                   />
@@ -42,7 +55,7 @@ const PokemonStats = ({ pokemonData }) => {
           />
         </>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
