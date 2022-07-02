@@ -10,9 +10,6 @@ const Abilities = () => {
   const { dataList, inputValue, setInputValue } =
     useDataSearch("abilityLastSearch");
 
-  useEffect(() => {
-    console.log(dataList);
-  }, [dataList]);
   return (
     <ScrollView>
       <View

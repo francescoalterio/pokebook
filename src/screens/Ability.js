@@ -35,7 +35,9 @@ const Ability = () => {
     }
   }, [route.params.id]);
 
-  useEffect(() => {}, [abilityData]);
+  useEffect(() => {
+    console.log(abilityData);
+  }, [abilityData]);
 
   const handleReturn = () => {
     navigation.navigate("AbilitiesScreen", { refresh: true });
@@ -96,16 +98,25 @@ const Ability = () => {
                   flex: 1,
                 }}
               >
-                <View style={[styles.info, { paddingHorizontal: 40 }]}>
-                  <Text
-                    style={[
-                      styles.title,
-                      { color: typesColor[route.params.type] },
-                    ]}
-                  >
-                    Pokemon with this ability
-                  </Text>
-                </View>
+                {abilityData && (
+                  <View style={[styles.info, { paddingHorizontal: 40 }]}>
+                    <Text
+                      style={[
+                        styles.title,
+                        { color: typesColor[route.params.type] },
+                      ]}
+                    >
+                      Effect
+                    </Text>
+                    <Text style={styles.dataValue}>
+                      {
+                        abilityData.effect_entries.find(
+                          (x) => x.language.name === "en"
+                        ).effect
+                      }
+                    </Text>
+                  </View>
+                )}
               </View>
             )}
           </TopTab.Screen>
@@ -193,7 +204,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
+  dataValue: {
+    color: "#787777",
+    fontWeight: "300",
+    fontSize: 20,
+    flex: 6,
+  },
   arrow: {
     position: "absolute",
     top: "10%",

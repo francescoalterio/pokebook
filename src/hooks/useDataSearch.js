@@ -17,6 +17,7 @@ const useDataSearch = (storage) => {
 
   const getLastSearch = async () => {
     const listLastSearch = await AsyncStorage.getItem(storage);
+    console.log(listLastSearch);
     if (listLastSearch) {
       const listParsed = JSON.parse(listLastSearch);
 

@@ -1,7 +1,8 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-import { typesBackgroundColor } from "../constants/colors";
+import { typesBackgroundColor, typesColor } from "../constants/colors";
 import useGetPokemon from "../hooks/useGetPokemon";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import PokeName from "./PokeName";
@@ -60,10 +61,24 @@ const PokemonCard = ({ pokemonId, screen, screenReturn }) => {
             <View style={{ flex: 9 }}></View>
 
             <View style={styles.imageContainer}>
-              <Image
-                style={{ width: 160, height: 160 }}
-                source={{ uri: pokemonData.sprites.other.home.front_default }}
-              />
+              {pokemonData.sprites.other.home.front_default ? (
+                <Image
+                  style={{ width: 160, height: 160 }}
+                  source={{ uri: pokemonData.sprites.other.home.front_default }}
+                />
+              ) : (
+                <View
+                  style={{
+                    width: 130,
+                    height: 130,
+                    backgroundColor: typesColor[pokemonData.types[0].type.name],
+                    borderRadius: 9999,
+                    marginRight: 10,
+                  }}
+                >
+                  <Ionicons name={"help"} size={130} color={"#fff"} />
+                </View>
+              )}
             </View>
           </View>
         </TouchableOpacity>

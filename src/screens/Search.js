@@ -4,10 +4,15 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Constants from "expo-constants";
 import PokemonCard from "../components/PokemonCard";
 import SearchBar from "../components/SearchBar";
+import { useEffect } from "react";
 
 const Search = () => {
   const { dataList, inputValue, setInputValue } =
     useDataSearch("pokemonLastSearch");
+
+  useEffect(() => {
+    console.log(dataList);
+  }, [dataList]);
 
   return (
     <ScrollView>

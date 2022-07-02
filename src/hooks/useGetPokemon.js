@@ -38,7 +38,10 @@ const useGetPokemon = (id, setPokemonId) => {
   }, [id]);
 
   const handleNext = async () => {
-    if (id === 898) {
+    if (id === 905) {
+      await AsyncStorage.setItem("lastPokemon", JSON.stringify(10001));
+      setPokemonId(10001);
+    } else if (id === 10249) {
       await AsyncStorage.setItem("lastPokemon", JSON.stringify(1));
       setPokemonId(1);
     } else {
@@ -49,8 +52,11 @@ const useGetPokemon = (id, setPokemonId) => {
 
   const handleBefore = async () => {
     if (id === 1) {
-      await AsyncStorage.setItem("lastPokemon", JSON.stringify(898));
-      setPokemonId(898);
+      await AsyncStorage.setItem("lastPokemon", JSON.stringify(10249));
+      setPokemonId(10249);
+    } else if (id === 10001) {
+      await AsyncStorage.setItem("lastPokemon", JSON.stringify(905));
+      setPokemonId(905);
     } else {
       await AsyncStorage.setItem("lastPokemon", JSON.stringify(id - 1));
       setPokemonId(id - 1);

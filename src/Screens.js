@@ -32,7 +32,7 @@ const Screens = () => {
     const api = new PokemonClient();
 
     api
-      .listPokemons(0, 898)
+      .listPokemons(0, 10000)
       .then(parseData)
       .then((result) => dispatch(setPokemonList(result)));
 

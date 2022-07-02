@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import { typesBackgroundColor } from "../constants/colors";
+import { typesBackgroundColor, typesColor } from "../constants/colors";
 import Constants from "expo-constants";
 import PokemonAbout from "./PokemonAbout";
 import PokemonStats from "./PokemonStats";
@@ -57,10 +57,24 @@ const Pokemon = ({ id, setPokemonId }) => {
         {pokemonData && (
           <>
             <View style={styles.imageContainer}>
-              <Image
-                style={{ width: 150, height: 150 }}
-                source={{ uri: pokemonData.sprites.other.home.front_default }}
-              />
+              {pokemonData.sprites.other.home.front_default ? (
+                <Image
+                  style={{ width: 150, height: 150 }}
+                  source={{ uri: pokemonData.sprites.other.home.front_default }}
+                />
+              ) : (
+                <View
+                  style={{
+                    width: 130,
+                    height: 130,
+                    backgroundColor: typesColor[pokemonData.types[0].type.name],
+                    borderRadius: 9999,
+                    marginRight: 10,
+                  }}
+                >
+                  <Ionicons name={"help"} size={130} color={"#fff"} />
+                </View>
+              )}
             </View>
             <PokeName
               pokemonId={pokemonData.id}

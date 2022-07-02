@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { PokemonClient } from "pokenode-ts";
 import { typesBackgroundColor } from "../constants/colors";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AbilityCard = ({ id, nameParsed }) => {
   const [abilityData, setAbilityData] = useState();
@@ -28,13 +29,35 @@ const AbilityCard = ({ id, nameParsed }) => {
     }
   }, [abilityData]);
 
-  const handleNavigate = () => {
-    if (type)
+  const handleNavigate = async () => {
+    if (type) {
+      const listLastSearch = await AsyncStorage.getItem("abilityLastSearch");
+      if (listLastSearch) {
+        const listParsed = JSON.parse(listLastSearch);
+        const removePokemonRepeat = listParsed.filter((x) => x !== id);
+        if (removePokemonRepeat.length === 20) {
+          removePokemonRepeat.pop();
+          const addNewSearch = [id, ...removePokemonRepeat];
+          await AsyncStorage.setItem(
+            "abilityLastSearch",
+            JSON.stringify(addNewSearch)
+          );
+        } else {
+          const addNewSearch = [id, ...removePokemonRepeat];
+          await AsyncStorage.setItem(
+            "abilityLastSearch",
+            JSON.stringify(addNewSearch)
+          );
+        }
+      } else {
+        await AsyncStorage.setItem("abilityLastSearch", JSON.stringify([id]));
+      }
       navigation.navigate("AbilityScreenAbilities", {
         id,
         type,
         nameParsed,
       });
+    }
   };
   return (
     <TouchableOpacity

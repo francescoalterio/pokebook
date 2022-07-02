@@ -69,21 +69,27 @@ const PokemonAbout = ({ pokemonData }) => {
             </View>
           </View>
 
-          <Text style={[styles.title, { color: typesColor[data.types[0]] }]}>
-            Games Indices
-          </Text>
-          {data.gameIndices.map((index) => (
-            <View key={index.name} style={styles.dataContainer}>
-              <Text style={styles.dataKey}>
-                {(index.gameIndex + "").length === 1
-                  ? `00${index.gameIndex}`
-                  : (index.gameIndex + "").length === 2
-                  ? `0${index.gameIndex}`
-                  : index.gameIndex}
+          {data.gameIndices.length > 0 && (
+            <>
+              <Text
+                style={[styles.title, { color: typesColor[data.types[0]] }]}
+              >
+                Games Indices
               </Text>
-              <Text style={styles.dataValue}>{index.name}</Text>
-            </View>
-          ))}
+              {data.gameIndices.map((index) => (
+                <View key={index.name} style={styles.dataContainer}>
+                  <Text style={styles.dataKey}>
+                    {(index.gameIndex + "").length === 1
+                      ? `00${index.gameIndex}`
+                      : (index.gameIndex + "").length === 2
+                      ? `0${index.gameIndex}`
+                      : index.gameIndex}
+                  </Text>
+                  <Text style={styles.dataValue}>{index.name}</Text>
+                </View>
+              ))}
+            </>
+          )}
         </>
       )}
     </ScrollView>
