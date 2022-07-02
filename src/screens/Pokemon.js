@@ -1,45 +1,23 @@
-import { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import { PokemonClient } from "pokenode-ts";
+
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { typesBackgroundColor } from "../constants/colors";
 import Constants from "expo-constants";
-import Type from "../components/Type";
 import PokemonAbout from "./PokemonAbout";
 import PokemonStats from "./PokemonStats";
+import PokeName from "../components/PokeName";
+
+import useGetPokemon from "../hooks/useGetPokemon";
 
 const TopTab = createMaterialTopTabNavigator();
 
 const Pokemon = ({ id, setPokemonId }) => {
-  const [pokemonData, setPokemonData] = useState();
-
-  useEffect(() => {
-    const api = new PokemonClient();
-
-    api.getPokemonById(id).then((data) => {
-      const nameParsed = data.name
-        .split("-")
-        .map((x) => {
-          const xSplited = x.split("");
-          xSplited[0] = xSplited[0].toUpperCase();
-          return xSplited.join("");
-        })
-        .join(" ");
-      setPokemonData({ ...data, nameParsed });
-    });
-  }, [id]);
-
-  const handleNext = () => {
-    if (id === 898) setPokemonId(1);
-    else setPokemonId(id + 1);
-  };
-
-  const handleBefore = () => {
-    if (id === 1) setPokemonId(898);
-    else setPokemonId(id - 1);
-  };
+  const { pokemonData, handleNext, handleBefore, handleReturn } = useGetPokemon(
+    id,
+    setPokemonId
+  );
 
   return (
     <View
@@ -69,7 +47,10 @@ const Pokemon = ({ id, setPokemonId }) => {
             </TouchableOpacity>
           </>
         ) : (
-          <TouchableOpacity style={styles.before}>
+          <TouchableOpacity
+            style={[styles.before, styles.arrow]}
+            onPress={handleReturn}
+          >
             <Ionicons name={"arrow-back"} size={20} color={"#fff"} />
           </TouchableOpacity>
         )}
@@ -81,22 +62,11 @@ const Pokemon = ({ id, setPokemonId }) => {
                 source={{ uri: pokemonData.sprites.other.home.front_default }}
               />
             </View>
-            <View style={styles.pokeNameContainer}>
-              <Text style={styles.id}>
-                #
-                {(pokemonData.id + "").length === 1
-                  ? `00${pokemonData.id}`
-                  : (pokemonData.id + "").length === 2
-                  ? `0${pokemonData.id}`
-                  : pokemonData.id}
-              </Text>
-              <Text style={styles.name}>{pokemonData.nameParsed}</Text>
-              <View style={styles.typeContainer}>
-                {pokemonData.types.map((type) => (
-                  <Type type={type.type.name} key={type.type.url} />
-                ))}
-              </View>
-            </View>
+            <PokeName
+              pokemonId={pokemonData.id}
+              name={pokemonData.nameParsed}
+              typesList={pokemonData.types}
+            />
           </>
         )}
       </View>
@@ -169,7 +139,7 @@ const styles = StyleSheet.create({
   presentation: {
     flex: 4,
     flexDirection: "row",
-    paddingTop: 20,
+    paddingTop: "10%",
   },
   infoContainer: {
     flex: 6,
@@ -185,22 +155,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  pokeNameContainer: {
-    flex: 11,
-    justifyContent: "center",
-  },
-  id: {
-    color: "#17171B",
-    fontWeight: "bold",
-  },
-  name: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 30,
-  },
-  typeContainer: {
-    flexDirection: "row",
-  },
+
   arrow: {
     position: "absolute",
     top: "10%",

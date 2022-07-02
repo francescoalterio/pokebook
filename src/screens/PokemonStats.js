@@ -37,22 +37,19 @@ const PokemonStats = ({ pokemonData }) => {
           >
             Base Stats
           </Text>
-          <FlatList
-            data={data}
-            renderItem={({ item }) => (
-              <View key={item.name} style={styles.dataContainer}>
-                <Text style={styles.dataKey}>{item.name}</Text>
-                <Text style={styles.dataValue}>{item.baseStat}</Text>
-                <View style={styles.progressBarContainer}>
-                  <Progress.Bar
-                    progress={item.porcentage}
-                    width={null}
-                    color={typesColor[pokemonData.types[0].type.name]}
-                  />
-                </View>
+          {data.map((item) => (
+            <View key={item.name} style={styles.dataContainer}>
+              <Text style={styles.dataKey}>{item.name}</Text>
+              <Text style={styles.dataValue}>{item.baseStat}</Text>
+              <View style={styles.progressBarContainer}>
+                <Progress.Bar
+                  progress={item.porcentage}
+                  width={null}
+                  color={typesColor[pokemonData.types[0].type.name]}
+                />
               </View>
-            )}
-          />
+            </View>
+          ))}
         </>
       )}
     </ScrollView>

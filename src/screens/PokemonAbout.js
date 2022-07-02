@@ -3,8 +3,6 @@ import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import { typesColor } from "../constants/colors";
 
 const PokemonAbout = ({ pokemonData }) => {
-  console.log(pokemonData);
-
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -24,17 +22,22 @@ const PokemonAbout = ({ pokemonData }) => {
       return { hidden: ability.is_hidden, name: abilityParsed };
     });
 
+    const gameIndices = pokemonData.game_indices.map((index) => {
+      return { gameIndex: index.game_index, name: index.version.name };
+    });
+
     const objectData = {
       types,
       height,
       weight,
       base_exp: pokemonData.base_experience,
       abilities,
+      gameIndices,
     };
     setData(objectData);
   }, [pokemonData]);
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView nestedScrollEnabled={true} style={styles.container}>
       {data && (
         <>
           <Text style={[styles.title, { color: typesColor[data.types[0]] }]}>
@@ -55,19 +58,32 @@ const PokemonAbout = ({ pokemonData }) => {
           <View style={styles.dataList}>
             <Text style={styles.dataKey}>Abilities</Text>
             <View style={styles.dataValue}>
-              <FlatList
-                data={data.abilities}
-                renderItem={({ item, index }) => (
-                  <Text
-                    key={item.name}
-                    style={[styles.dataValue, { marginBottom: 5 }]}
-                  >
-                    {index + 1}. {item.name} {item.hidden && "(hidden ability)"}
-                  </Text>
-                )}
-              />
+              {data.abilities.map((item, index) => (
+                <Text
+                  key={item.name}
+                  style={[styles.dataValue, { marginBottom: 5 }]}
+                >
+                  {index + 1}. {item.name} {item.hidden && "(hidden ability)"}
+                </Text>
+              ))}
             </View>
           </View>
+
+          <Text style={[styles.title, { color: typesColor[data.types[0]] }]}>
+            Games Indices
+          </Text>
+          {data.gameIndices.map((index) => (
+            <View key={index.name} style={styles.dataContainer}>
+              <Text style={styles.dataKey}>
+                {(index.gameIndex + "").length === 1
+                  ? `00${index.gameIndex}`
+                  : (index.gameIndex + "").length === 2
+                  ? `0${index.gameIndex}`
+                  : index.gameIndex}
+              </Text>
+              <Text style={styles.dataValue}>{index.name}</Text>
+            </View>
+          ))}
         </>
       )}
     </ScrollView>

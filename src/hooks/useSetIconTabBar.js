@@ -5,12 +5,12 @@ export const useSetIconTabBar = () => {
     tabBarIcon: ({ focused, color, size }) => {
       let iconName;
 
-      if (route.name === "Home") {
+      if (route.name === "HomeTab") {
         iconName = focused ? "home" : "home-outline";
-      } else if (route.name === "Search") {
+      } else if (route.name === "SearchTab") {
         iconName = focused ? "search-circle" : "search-circle-outline";
-      } else if (route.name === "Settings") {
-        iconName = focused ? "settings" : "settings-outline";
+      } else if (route.name === "AbilitiesTab") {
+        iconName = focused ? "flame" : "flame-outline";
       }
 
       // You can return any component that you like here!
