@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     paddingTop: 25,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
   imageContainer: {
     flex: 10,

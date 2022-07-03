@@ -47,7 +47,7 @@ const useDataSearch = (storage) => {
   }, [inputValue]);
 
   useEffect(() => {
-    if (route.params) getLastSearch();
+    if (route.params && !inputValue) getLastSearch();
   }, [route.params]);
 
   return { dataList: dataStateList, inputValue, setInputValue };

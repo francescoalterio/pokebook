@@ -23,9 +23,11 @@ const AbilityCard = ({ id, nameParsed, width, tab }) => {
   useEffect(() => {
     const api = new PokemonClient();
     if (abilityData) {
-      api
-        .getPokemonByName(abilityData.pokemon[0].pokemon.name)
-        .then((data) => setType(data.types[0].type.name));
+      abilityData.pokemon.length > 0
+        ? api
+            .getPokemonByName(abilityData.pokemon[0].pokemon.name)
+            .then((data) => setType(data.types[0].type.name))
+        : setType("normal");
     }
   }, [abilityData]);
 
