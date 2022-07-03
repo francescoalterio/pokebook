@@ -33,9 +33,7 @@ const AbilityCard = ({ id, nameParsed, width, tab }) => {
     const listLastSearch = await AsyncStorage.getItem("abilityLastSearch");
     if (listLastSearch) {
       const listParsed = JSON.parse(listLastSearch).map((x) => Number(x));
-      console.log(listParsed, id);
       const removePokemonRepeat = listParsed.filter((x) => x !== Number(id));
-      console.log(removePokemonRepeat);
       if (removePokemonRepeat.length === 20) {
         removePokemonRepeat.pop();
         const addNewSearch = [id, ...removePokemonRepeat];

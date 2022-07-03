@@ -74,7 +74,6 @@ const useGetPokemon = (id, setPokemonId, tabProp) => {
       navigation.navigate("HomeScreen", { refresh: true });
     }
   };
-  console.log(tabProp, route.params);
   return {
     pokemonData,
     handleNext,
