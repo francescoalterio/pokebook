@@ -3,7 +3,7 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PokemonClient } from "pokenode-ts";
 
-const useGetPokemon = (id, setPokemonId) => {
+const useGetPokemon = (id, setPokemonId, tabProp) => {
   const [pokemonData, setPokemonData] = useState();
   const route = useRoute();
   const navigation = useNavigation();
@@ -35,7 +35,7 @@ const useGetPokemon = (id, setPokemonId) => {
         setPokemonData({ ...data, nameParsed });
       });
     }
-  }, [id]);
+  }, [id, route.params]);
 
   const handleNext = async () => {
     if (id === 905) {
@@ -64,15 +64,24 @@ const useGetPokemon = (id, setPokemonId) => {
   };
 
   const handleReturn = () => {
-    if (route.params.screenReturn === "SearchScreen") {
-      navigation.navigate(route.params.screenReturn, { refresh: true });
+    if (route.params.tab === "SearchTab") {
+      navigation.navigate("SearchScreen", { refresh: true });
     }
-    if (!route.params.screenReturn) {
-      navigation.goBack();
+    if (route.params.tab === "AbilitiesTab") {
+      navigation.navigate("AbilitiesScreen", { refresh: true });
+    }
+    if (tabProp === "HomeTab" || route.params.tab === "HomeTab") {
+      navigation.navigate("HomeScreen", { refresh: true });
     }
   };
-
-  return { pokemonData, handleNext, handleBefore, handleReturn };
+  console.log(tabProp, route.params);
+  return {
+    pokemonData,
+    handleNext,
+    handleBefore,
+    handleReturn,
+    tab: tabProp ? tabProp : route.params && route.params.tab,
+  };
 };
 
 export default useGetPokemon;

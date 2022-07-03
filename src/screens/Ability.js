@@ -35,12 +35,16 @@ const Ability = () => {
     }
   }, [route.params.id]);
 
-  useEffect(() => {
-    console.log(abilityData);
-  }, [abilityData]);
-
   const handleReturn = () => {
-    navigation.navigate("AbilitiesScreen", { refresh: true });
+    if (route.params.tab === "SearchTab") {
+      navigation.navigate("SearchScreen", { refresh: true });
+    }
+    if (route.params.tab === "AbilitiesTab") {
+      navigation.navigate("AbilitiesScreen", { refresh: true });
+    }
+    if (route.params.tab === "HomeTab") {
+      navigation.navigate("HomeScreen", { refresh: true });
+    }
   };
   return (
     <View
@@ -144,7 +148,7 @@ const Ability = () => {
                           <PokemonCard
                             key={item.url}
                             pokemonId={item.id}
-                            screen="PokemonScreenAbilities"
+                            tab={route.params.tab}
                           />
                         ))}
                       </View>

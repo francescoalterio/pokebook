@@ -20,7 +20,9 @@ const Home = () => {
   }, []);
   return (
     <View style={{ flex: 1 }}>
-      {pokemonId && <Pokemon id={pokemonId} setPokemonId={setPokemonId} />}
+      {pokemonId && (
+        <Pokemon id={pokemonId} setPokemonId={setPokemonId} tabProp="HomeTab" />
+      )}
     </View>
   );
 };

@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
+import AbilityCard from "../components/AbilityCard";
 import { typesColor } from "../constants/colors";
+import { parseData } from "../utils/parseData";
 
-const PokemonAbout = ({ pokemonData }) => {
+const PokemonAbout = ({ pokemonData, tab }) => {
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -18,8 +20,9 @@ const PokemonAbout = ({ pokemonData }) => {
           return wordSplited.join("");
         })
         .join(" ");
+      const abilityId = ability.ability.url.split("/")[6];
 
-      return { hidden: ability.is_hidden, name: abilityParsed };
+      return { hidden: ability.is_hidden, name: abilityParsed, id: abilityId };
     });
 
     const gameIndices = pokemonData.game_indices.map((index) => {
@@ -57,14 +60,15 @@ const PokemonAbout = ({ pokemonData }) => {
           </View>
           <View style={styles.dataList}>
             <Text style={styles.dataKey}>Abilities</Text>
-            <View style={styles.dataValue}>
+            <View style={[styles.dataValue]}>
               {data.abilities.map((item, index) => (
-                <Text
-                  key={item.name}
-                  style={[styles.dataValue, { marginBottom: 5 }]}
-                >
-                  {index + 1}. {item.name} {item.hidden && "(hidden ability)"}
-                </Text>
+                <AbilityCard
+                  key={item.id}
+                  id={item.id}
+                  nameParsed={item.name}
+                  width="95%"
+                  tab={tab}
+                />
               ))}
             </View>
           </View>

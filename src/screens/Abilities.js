@@ -20,15 +20,19 @@ const Abilities = () => {
           setValue={setInputValue}
           placeholder="Search any Ability"
         />
-        <View style={styles.abilitesContainer}>
-          {dataList.map((ability) => (
-            <AbilityCard
-              key={ability.id}
-              id={ability.id}
-              nameParsed={ability.nameParsed}
-            />
-          ))}
-        </View>
+        {dataList && (
+          <View style={styles.abilitesContainer}>
+            {dataList.map((ability) => (
+              <AbilityCard
+                key={ability.id + ability.nameParsed}
+                id={ability.id}
+                nameParsed={ability.nameParsed}
+                width="42%"
+                tab="AbilitiesTab"
+              />
+            ))}
+          </View>
+        )}
       </View>
     </ScrollView>
   );

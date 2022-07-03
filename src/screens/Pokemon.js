@@ -13,11 +13,9 @@ import useGetPokemon from "../hooks/useGetPokemon";
 
 const TopTab = createMaterialTopTabNavigator();
 
-const Pokemon = ({ id, setPokemonId }) => {
-  const { pokemonData, handleNext, handleBefore, handleReturn } = useGetPokemon(
-    id,
-    setPokemonId
-  );
+const Pokemon = ({ id, setPokemonId, tabProp }) => {
+  const { pokemonData, handleNext, handleBefore, handleReturn, tab } =
+    useGetPokemon(id, setPokemonId, tabProp);
 
   return (
     <View
@@ -118,7 +116,9 @@ const Pokemon = ({ id, setPokemonId }) => {
                 }}
               >
                 <View style={styles.info}>
-                  {pokemonData && <PokemonAbout pokemonData={pokemonData} />}
+                  {pokemonData && (
+                    <PokemonAbout pokemonData={pokemonData} tab={tab} />
+                  )}
                 </View>
               </View>
             )}

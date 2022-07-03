@@ -7,7 +7,7 @@ import useGetPokemon from "../hooks/useGetPokemon";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import PokeName from "./PokeName";
 
-const PokemonCard = ({ pokemonId, screen, screenReturn }) => {
+const PokemonCard = ({ pokemonId, tab, screenReturn }) => {
   const { pokemonData } = useGetPokemon(pokemonId);
   const navigation = useNavigation();
 
@@ -36,7 +36,27 @@ const PokemonCard = ({ pokemonId, screen, screenReturn }) => {
         JSON.stringify([pokemonId])
       );
     }
-    navigation.navigate(screen, { id: pokemonId, screenReturn });
+    if (tab === "SearchTab") {
+      navigation.navigate("PokemonScreenPokemons", {
+        id: pokemonId,
+        tab,
+        screenReturn,
+      });
+    }
+    if (tab === "AbilitiesTab") {
+      navigation.navigate("PokemonScreenAbilities", {
+        id: pokemonId,
+        tab,
+        screenReturn,
+      });
+    }
+    if (tab === "HomeTab") {
+      navigation.navigate("PokemonScreenHome", {
+        id: pokemonId,
+        tab,
+        screenReturn,
+      });
+    }
   };
 
   return (

@@ -10,10 +10,6 @@ const Search = () => {
   const { dataList, inputValue, setInputValue } =
     useDataSearch("pokemonLastSearch");
 
-  useEffect(() => {
-    console.log(dataList);
-  }, [dataList]);
-
   return (
     <ScrollView>
       <View
@@ -28,6 +24,7 @@ const Search = () => {
           <PokemonCard
             key={pokemon.url}
             pokemonId={pokemon.id}
+            tab="SearchTab"
             screenReturn="SearchScreen"
             screen="PokemonScreenPokemons"
           />

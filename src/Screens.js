@@ -28,9 +28,7 @@ const Screens = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    AsyncStorage.removeItem("listLastSearch");
     const api = new PokemonClient();
-
     api
       .listPokemons(0, 10000)
       .then(parseData)
@@ -47,9 +45,28 @@ const Screens = () => {
       <Tab.Navigator screenOptions={setIconTabBar}>
         <Tab.Screen
           name="HomeTab"
-          component={Home}
           options={{ headerShown: false, title: "Home" }}
-        />
+        >
+          {() => (
+            <Stack.Navigator initialRouteName="HomeScreen">
+              <Stack.Screen
+                name="HomeScreen"
+                component={Home}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="PokemonScreenHome"
+                component={Pokemon}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="AbilityScreenHome"
+                component={Ability}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          )}
+        </Tab.Screen>
         <Tab.Screen
           name="SearchTab"
           options={{ headerShown: false, title: "Search" }}
@@ -64,6 +81,11 @@ const Screens = () => {
               <Stack.Screen
                 name="PokemonScreenPokemons"
                 component={Pokemon}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="AbilityScreenPokemons"
+                component={Ability}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>
