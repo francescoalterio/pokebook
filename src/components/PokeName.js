@@ -15,7 +15,7 @@ const PokeName = ({ pokemonId, name, typesList, card }) => {
       <Text
         style={[
           styles.name,
-          { fontSize: name.split(" ").length >= 2 && card ? 20 : 30 },
+          { fontSize: name.split(" ").length >= 2 && card ? 20 : 25 },
         ]}
       >
         {name}
