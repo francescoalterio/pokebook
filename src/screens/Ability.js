@@ -113,11 +113,13 @@ const Ability = () => {
                       Effect
                     </Text>
                     <Text style={styles.dataValue}>
-                      {
-                        abilityData.effect_entries.find(
-                          (x) => x.language.name === "en"
-                        ).effect
-                      }
+                      {abilityData.effect_entries.length > 0
+                        ? abilityData.effect_entries.find(
+                            (x) => x.language.name === "en"
+                          ).effect
+                        : abilityData.flavor_text_entries.find(
+                            (x) => x.language.name === "en"
+                          ).flavor_text}
                     </Text>
                   </View>
                 )}
