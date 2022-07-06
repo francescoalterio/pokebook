@@ -18,6 +18,7 @@ import Pokemon from "./screens/Pokemon";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setAbilityList } from "./store/abilityListSlice";
 import Ability from "./screens/Ability";
+import ModalFilter from "./screens/ModalFilter";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -39,6 +40,10 @@ const Screens = () => {
       .then(parseData)
       .then((result) => dispatch(setAbilityList(result)));
   }, []);
+
+  useEffect(() => {
+    console.log(pokemonList);
+  }, [pokemonList]);
 
   return (
     <NavigationContainer>
@@ -73,21 +78,33 @@ const Screens = () => {
         >
           {() => (
             <Stack.Navigator initialRouteName="SearchScreen">
-              <Stack.Screen
-                name="SearchScreen"
-                component={Search}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="PokemonScreenPokemons"
-                component={Pokemon}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="AbilityScreenPokemons"
-                component={Ability}
-                options={{ headerShown: false }}
-              />
+              <Stack.Group>
+                <Stack.Screen
+                  name="SearchScreen"
+                  component={Search}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="PokemonScreenPokemons"
+                  component={Pokemon}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="AbilityScreenPokemons"
+                  component={Ability}
+                  options={{ headerShown: false }}
+                />
+              </Stack.Group>
+              <Stack.Group screenOptions={{ presentation: "modal" }}>
+                <Stack.Screen
+                  name="ModalFilter"
+                  component={ModalFilter}
+                  options={{
+                    headerShown: false,
+                    contentStyle: { backgroundColor: "rgba(0,0,0,0)" },
+                  }}
+                />
+              </Stack.Group>
             </Stack.Navigator>
           )}
         </Tab.Screen>

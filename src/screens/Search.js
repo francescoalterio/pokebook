@@ -1,13 +1,15 @@
 import useDataSearch from "../hooks/useDataSearch";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Constants from "expo-constants";
 import PokemonCard from "../components/PokemonCard";
 import SearchBar from "../components/SearchBar";
-import { useEffect } from "react";
+
+const ModalStack = createNativeStackNavigator();
 
 const Search = () => {
-  const { dataList, inputValue, setInputValue } =
+  const { dataList, inputValue, setInputValue, typesFilter } =
     useDataSearch("pokemonLastSearch");
 
   return (
@@ -19,6 +21,8 @@ const Search = () => {
           value={inputValue}
           setValue={setInputValue}
           placeholder="Search any Pokemon"
+          pokemonSearch
+          typesFilter={typesFilter}
         />
         {dataList.map((pokemon) => (
           <PokemonCard

@@ -16,7 +16,7 @@ export const useSetIconTabBar = () => {
       // You can return any component that you like here!
       return <Ionicons name={iconName} size={size} color={color} />;
     },
-    tabBarActiveTintColor: "red",
+    tabBarActiveTintColor: "#24a0ed",
     tabBarInactiveTintColor: "gray",
   });
 

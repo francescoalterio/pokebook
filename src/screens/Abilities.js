@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Constants from "expo-constants";
 import SearchBar from "../components/SearchBar";
 import useDataSearch from "../hooks/useDataSearch";
-import { ReactReduxContext } from "react-redux";
 import AbilityCard from "../components/AbilityCard";
 
 const Abilities = () => {
