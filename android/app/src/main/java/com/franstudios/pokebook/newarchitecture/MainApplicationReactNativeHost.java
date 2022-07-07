@@ -1,4 +1,4 @@
-package com.pokedex.newarchitecture;
+package com.franstudios.pokebook.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.pokedex.BuildConfig;
-import com.pokedex.newarchitecture.components.MainComponentsRegistry;
-import com.pokedex.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.franstudios.pokebook.BuildConfig;
+import com.franstudios.pokebook.newarchitecture.components.MainComponentsRegistry;
+import com.franstudios.pokebook.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.pokedex;
+package com.franstudios.pokebook;
 
 import android.os.Build;
 import android.os.Bundle;
