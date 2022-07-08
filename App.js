@@ -6,21 +6,7 @@ import Screens from "./src/Screens";
 
 import store from "./src/store";
 
-import mobileAds, {
-  AppOpenAd,
-  TestIds,
-  AdEventType,
-} from "react-native-google-mobile-ads";
-
-const adUnitId = TestIds.APP_OPEN;
-
 export default function App() {
-  mobileAds().initialize();
-
-  const appOpenAd = AppOpenAd.createForAdRequest(adUnitId);
-
-  appOpenAd.load();
-  appOpenAd.show();
   return (
     <Provider store={store}>
       <SafeAreaView style={styles.container}>

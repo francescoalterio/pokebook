@@ -18,8 +18,5 @@
     },
     "versionCode": 1,
     "assetBundlePatterns": ["**/*"]
-  },
-  "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-6947784507365792~5048525317"
   }
 }
