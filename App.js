@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { Provider } from "react-redux";
 import Screens from "./src/Screens";
@@ -7,17 +7,25 @@ import Screens from "./src/Screens";
 import store from "./src/store";
 
 import mobileAds from "react-native-google-mobile-ads";
-import { AppOpenAd, TestIds } from "react-native-google-mobile-ads";
+import { useInterstitialAd, TestIds } from "react-native-google-mobile-ads";
 
 export default function App() {
+  const { isLoaded, isClosed, load, show } = useInterstitialAd(
+    TestIds.INTERSTITIAL,
+    {
+      requestNonPersonalizedAdsOnly: true,
+    }
+  );
   mobileAds()
     .initialize()
     .then((adapterStatuses) => {
       // Initialization complete!
-      const appOpenAd = AppOpenAd.createForAdRequest(TestIds.APP_OPEN);
-      appOpenAd.load();
-      appOpenAd.show();
+      load();
     });
+
+  useEffect(() => {
+    if (isLoaded) show();
+  }, [isLoaded]);
 
   return (
     <Provider store={store}>
