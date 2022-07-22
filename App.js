@@ -14,7 +14,9 @@ export default function App() {
     .initialize()
     .then((adapterStatuses) => {
       // Initialization complete!
-      AppOpenAd.createForAdRequest(TestIds.APP_OPEN);
+      const appOpenAd = AppOpenAd.createForAdRequest(TestIds.APP_OPEN);
+      appOpenAd.load();
+      appOpenAd.show();
     });
 
   return (
