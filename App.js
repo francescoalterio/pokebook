@@ -26,7 +26,7 @@ export default function App() {
       // Show the app open ad when user brings the app to the foreground.
       appOpenAd.show();
     };
-    ads;
+    ads();
   }, []);
 
   return (
