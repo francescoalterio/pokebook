@@ -7,25 +7,22 @@ import Screens from "./src/Screens";
 import store from "./src/store";
 
 import mobileAds from "react-native-google-mobile-ads";
-import { useInterstitialAd, TestIds } from "react-native-google-mobile-ads";
+import {
+  AppOpenAd,
+  TestIds,
+  AdEventType,
+} from "react-native-google-mobile-ads";
+
+const adUnitId = TestIds.APP_OPEN;
 
 export default function App() {
-  const { isLoaded, isClosed, load, show } = useInterstitialAd(
-    TestIds.INTERSTITIAL,
-    {
-      requestNonPersonalizedAdsOnly: true,
-    }
-  );
-  mobileAds()
-    .initialize()
-    .then((adapterStatuses) => {
-      // Initialization complete!
-      load();
-    });
+  const appOpenAd = AppOpenAd.createForAdRequest(adUnitId);
 
-  useEffect(() => {
-    if (isLoaded) show();
-  }, [isLoaded]);
+  // Preload an app open ad
+  appOpenAd.load();
+
+  // Show the app open ad when user brings the app to the foreground.
+  appOpenAd.show();
 
   return (
     <Provider store={store}>
