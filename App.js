@@ -6,7 +6,6 @@ import Screens from "./src/Screens";
 
 import store from "./src/store";
 
-import mobileAds from "react-native-google-mobile-ads";
 import mobileAds, {
   AppOpenAd,
   TestIds,
