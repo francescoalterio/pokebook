@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { Provider } from "react-redux";
 import Screens from "./src/Screens";
@@ -16,7 +16,9 @@ import mobileAds, {
 const adUnitId = TestIds.APP_OPEN;
 
 export default function App() {
-  const { load, show, isLoaded, isClosed, error } = useAppOpenAd(adUnitId);
+  const [adViewed, setAdViewed] = useState(false);
+  const { load, show, isLoaded, isClosed, error, isOpened } =
+    useAppOpenAd(adUnitId);
 
   mobileAds()
     .initialize()
@@ -25,16 +27,25 @@ export default function App() {
     });
 
   useEffect(() => {
-    if (isLoaded) show();
+    if (isLoaded && !adViewed) show();
   }, [isLoaded]);
 
-  return (
+  useEffect(() => {
+    if (isOpened) setAdViewed(true);
+  }, [isOpened]);
+
+  useEffect(() => {
+    if (error) setAdViewed(true);
+  }, [error]);
+  return adViewed ? (
     <Provider store={store}>
       <SafeAreaView style={styles.container}>
         <Screens />
         <StatusBar style="auto" />
       </SafeAreaView>
     </Provider>
+  ) : (
+    <View />
   );
 }
 
