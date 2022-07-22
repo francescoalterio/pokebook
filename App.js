@@ -7,21 +7,27 @@ import Screens from "./src/Screens";
 import store from "./src/store";
 
 import mobileAds from "react-native-google-mobile-ads";
-import {
+import mobileAds, {
   AppOpenAd,
   TestIds,
   AdEventType,
+  useAppOpenAd,
 } from "react-native-google-mobile-ads";
 
 const adUnitId = TestIds.APP_OPEN;
 
 export default function App() {
-  const appOpenAd = AppOpenAd.createForAdRequest(adUnitId);
-  appOpenAd.load();
+  const { load, show, isLoaded, isClosed, error } = useAppOpenAd(adUnitId);
+
+  mobileAds()
+    .initialize()
+    .then((adapterStatuses) => {
+      load();
+    });
 
   useEffect(() => {
-    if (appOpenAd.loaded) appOpenAd.show();
-  }, [appOpenAd.loaded]);
+    if (isLoaded) show();
+  }, [isLoaded]);
 
   return (
     <Provider store={store}>
