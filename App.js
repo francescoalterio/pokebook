@@ -16,13 +16,18 @@ import {
 const adUnitId = TestIds.APP_OPEN;
 
 export default function App() {
-  const appOpenAd = AppOpenAd.createForAdRequest(adUnitId);
+  useEffect(() => {
+    const ads = async () => {
+      const appOpenAd = AppOpenAd.createForAdRequest(adUnitId);
 
-  // Preload an app open ad
-  appOpenAd.load();
+      // Preload an app open ad
+      appOpenAd.load();
 
-  // Show the app open ad when user brings the app to the foreground.
-  appOpenAd.show();
+      // Show the app open ad when user brings the app to the foreground.
+      appOpenAd.show();
+    };
+    ads;
+  }, []);
 
   return (
     <Provider store={store}>
