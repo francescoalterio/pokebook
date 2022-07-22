@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image } from "react-native";
 import { Provider } from "react-redux";
 import Screens from "./src/Screens";
 
@@ -13,7 +13,9 @@ import mobileAds, {
   useAppOpenAd,
 } from "react-native-google-mobile-ads";
 
-const adUnitId = TestIds.APP_OPEN;
+const adUnitId = __DEV__
+  ? TestIds.APP_OPEN
+  : "ca-app-pub-6947784507365792/1109280306";
 
 export default function App() {
   const [adViewed, setAdViewed] = useState(false);
@@ -45,7 +47,19 @@ export default function App() {
       </SafeAreaView>
     </Provider>
   ) : (
-    <View />
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#fff",
+      }}
+    >
+      <Image
+        style={{ width: 200, height: 200 }}
+        source={require("./assets/splash.png")}
+      />
+    </View>
   );
 }
 
